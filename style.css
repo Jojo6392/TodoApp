@@ -61,6 +61,8 @@ input {
     height: 50px;
     font-size: 20px;
     border: 1px solid black;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .annuler {
@@ -110,4 +112,22 @@ input {
     padding-left: 20px;
     padding-top: 20px;
     margin-bottom: -40px;
+}
+
+.delete-todo {
+    cursor: pointer;
+    width: fit-content;
+}
+
+.btn-form {
+    height: auto;
+}
+
+label{
+    color: white;
+}
+
+.form-error {
+    --display: none;
+    display: var(--display);
 }

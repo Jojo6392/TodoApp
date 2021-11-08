@@ -16,8 +16,15 @@ function sendData() {
     var description = document.querySelector("#description").value
     var btn_checked = document.querySelector(".btn:checked")
     if(btn_checked) {
-        console.log(btn_checked.value);
         btn_checked = btn_checked.value
+    }
+
+    //check if we get empty input value because we don't use the form element to check it
+    if(title == '' || lieu == '' || heure == '' || description == '') {
+        console.log("rentre");
+        const elError = document.querySelector(".form-error");
+        elError.style.setProperty("--display", "block")
+        return;
     }
 
     const todo = new Todo(title, lieu, heure, description, btn_checked)
@@ -33,7 +40,6 @@ function sendData() {
         heure: heure,
         description: description,
         level: btn_checked,
-        isActive: true
     }
 
     //adding in html, parent div
@@ -88,13 +94,14 @@ function addTodoInHTML(data) {
     elTodo.classList.add("todo")
     elTodo.classList.add(`todo-${data.title}`)
     elTodo.innerHTML = `
-    <input type="checkbox" class="checkbox-todo" id="checkbox-${data.title}" value="${data.title}">
+        <input type="checkbox" class="checkbox-todo" id="checkbox-${data.title}" value="${data.title}">
         <h3>${data.title}</h3>
         <div>${data.heure} - ${data.lieu}</div>
-        <div>${data.description}</div>`
+        <div>${data.description}</div>
+        <div class="delete-todo" value="${data.title}">🚮</div>`
     const elTodos = document.querySelector(".todos")
-    elTodos.append(elTodo)
-    elTodos.insertAdjacentHTML("beforeend", "<br />")
+    elTodos.insertAdjacentElement("afterbegin", elTodo)
+    elTodos.insertAdjacentHTML("afterbegin", "<br />")
 
     if(data.level == 0) {
         elTodo.style.setProperty("--border", "2px grey solid")
@@ -110,48 +117,61 @@ function addTodoInHTML(data) {
 
 getAllItems()
 
-window.addEventListener("load", function() {
-    const btn_display_form = document.querySelector(".display-form")
-    const elForm = document.querySelector(".form")
+const btn_display_form = document.querySelector(".display-form")
+const elForm = document.querySelector(".form")
 
-    btn_display_form.addEventListener("click",() => {
-        var isActive = elForm.getAttribute("isActive")
-        if(isActive == "false") isActive = false
+btn_display_form.addEventListener("click",() => {
+    var isActive = elForm.getAttribute("isActive")
+    if(isActive == "false") isActive = false
 
-        if(!isActive) {
-            elForm.style.setProperty('--display','block')
-        elForm.setAttribute("isActive", true)
-        }
-        else {
-            elForm.style.setProperty('--display','none')
-            elForm.setAttribute("isActive", false)
-        }
+    if(!isActive) {
+        elForm.style.setProperty('--display','block')
+    elForm.setAttribute("isActive", true)
+    }
+    else {
+        elForm.style.setProperty('--display','none')
+        elForm.setAttribute("isActive", false)
+    }
 
-        const btnAnnuler  = document.querySelector(".annuler")
-        btnAnnuler.addEventListener("click", () => { 
-            elForm.style.setProperty('--display','none')
-            elForm.setAttribute("isActive", false)
+    const btnAnnuler  = document.querySelector(".annuler")
+    btnAnnuler.addEventListener("click", () => { 
+        elForm.style.setProperty('--display','none')
+        elForm.setAttribute("isActive", false)
+    })
+})
+
+var checkboxesCondition = document.querySelectorAll(".checkbox-todo") !== null
+if(checkboxesCondition) {
+    var checkboxes = document.querySelectorAll(".checkbox-todo")
+    checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+
+            var currentTodo = document.querySelector(`.todo-${checkbox.value}`)
+            if(this.checked) {
+                currentTodo.style.setProperty("--opacity","0.40")
+                currentTodo.style.setProperty("--text","line-through")
+            }
+            else {
+                currentTodo.style.setProperty("--opacity","1")
+                currentTodo.style.setProperty("--text","")
+            }
         })
     })
+}
 
-    if(!isEmpty) {
-        var checkboxes = document.querySelectorAll(".checkbox-todo")
-
-        checkboxes.forEach(function(checkbox) {
-            checkbox.addEventListener('change', function() {
-
-                var currentTodo = document.querySelector(`.todo-${checkbox.value}`)
-                if(this.checked) {
-                    console.log("j'écoute",checkbox.value);
-                    currentTodo.style.setProperty("--opacity","0.40")
-                    currentTodo.style.setProperty("--text","line-through")
-                }
-                else {
-                    currentTodo.style.setProperty("--opacity","1")
-                    currentTodo.style.setProperty("--text","")
-                }
-            })
+var deleteElementsCondition = document.querySelectorAll(".delete-todo") !== null
+if(deleteElementsCondition) {
+    var deleteElements = document.querySelectorAll(".delete-todo")
+    deleteElements.forEach(function(deleteElement){
+        deleteElement.addEventListener("click", function(){
+            var currentTodo = document.querySelector(`.todo-${deleteElement.getAttribute("value")}`)
+            //console.log();
+            currentTodo.style.display = "none"
+            localStorage.removeItem(`todo-${deleteElement.getAttribute("value")}`);
         })
-    }
-});
+    })
+}
+
+    
+
 

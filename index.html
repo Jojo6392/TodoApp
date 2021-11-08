@@ -19,15 +19,22 @@
                 <br />
                 <input class="input-text" type="textarea" name="description" id="description" placeholder="Description">
                 <br />
-                <input name="btn-radio" type="radio" class="btn btn-gris" value="0">
-                <input name="btn-radio" type="radio" class="btn btn-jaube" value="1">
-                <input name="btn-radio" type="radio" class="btn btn-rouge" value="2">
+
+                <label for="btn-gris">Peu important</label>
+                <input name="btn-radio" id="btn-gris" type="radio" class="btn-form btn-gris" value="0">
+
+                <label for="btn-gris">Important</label>
+                <input name="btn-radio" id="btn-jaune" type="radio" class="btn-form btn-jaube" value="1">
+
+                <label for="btn-gris">Très important</label>
+                <input name="btn-radio" id="btn-rouge" type="radio" class="btn-form btn-rouge" value="2">
                 <br />
                 <button id="btn-submit" type="button" value="Valider" onclick="sendData()">Valider</button>
+                <i class="form-error">Veuillez remplir tous les champs</i>
             </form>
             <button class="annuler">X</button>
         </div>
-        <h3 class="title-todos"></h3>
+        <h1 class="title-todos"></h1>
         <div class="todos"></div>
         <button class="display-form">+</button>
     </div>
