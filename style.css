@@ -76,12 +76,18 @@ input {
 }
 
 .todo {
+    --opacity: 1;
+    --text: "";
+
     padding-left: 20px;
     padding-bottom: 20px;
     border-radius: 10px;
     width: 60%;
     margin: 0 auto;
     background-color: white;
+    opacity: var(--opacity);
+    text-decoration: var(--text);
+
 }
 
 .todos {
@@ -98,4 +104,10 @@ input {
     height: 100px;
     border: 1px solid black;
     font-size: 64px;
+}
+
+.elMsg {
+    padding-left: 20px;
+    padding-top: 20px;
+    margin-bottom: -40px;
 }
