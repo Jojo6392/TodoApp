@@ -42,16 +42,28 @@ function sendData() {
         <h3>${list.title}</h3>
         <div>${list.heure} - ${list.lieu}</div>
         <div>${list.description}</div>`
-    
-        const elTodos = document.querySelector(".todos")
-        elTodos.append(elTodo)
+
+    if(list.level == 0) {
+        elTodo.style.setProperty("--border", "2px grey solid")
+    }
+    if(list.level == 1) {
+        elTodo.style.setProperty("--border", "2px yellow solid")
+    }
+    if(list.level == 2) {
+        elTodo.style.setProperty("--border", "2px red solid")
+    }
+
+    const elTodos = document.querySelector(".todos")
+    elTodos.append(elTodo)
 
     //store in local
     localStorage.setItem(`todo-${list.title}`, JSON.stringify(list));
     
-    //reset form
+    //close form
     document.getElementById("form").reset();
-
+    const elForm = document.querySelector(".form")
+    elForm.style.setProperty('--display','none')
+    elForm.setAttribute("isActive", false)
 }
 
 //function to get all items in the local storage
@@ -74,6 +86,7 @@ function addTodoInHTML(data) {
     var elTodo = document.createElement("div")
     elTodo.classList.add("todo")
     elTodo.innerHTML = `
+    <input type="checkbox" class="checkbox-todo" id="checkbox-${data.title}" name="horns">
         <h3>${data.title}</h3>
         <div>${data.heure} - ${data.lieu}</div>
         <div>${data.description}</div>`

@@ -14,6 +14,12 @@ window.addEventListener("load", function() {
         elForm.style.setProperty('--display','none')
         elForm.setAttribute("isActive", false)
     }
+
+    const btnAnnuler  = document.querySelector(".annuler")
+    btnAnnuler.addEventListener("click", () => {
+        elForm.style.setProperty('--display','none')
+        elForm.setAttribute("isActive", false)
+    })
 })
     
 });
