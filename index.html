@@ -1,0 +1,32 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js"></script>
+    <title>TODO APP</title>
+</head>
+<body>
+    <div class="container">
+        <div class="form" isActive=false>
+            <form id="form">
+                <input type="text" name="title" id="title">
+                <input type="text" name="lieu" id="lieu">
+                <input type="time" name="heure" id="heure">
+                <input type="text" name="description" id="description">
+                <input type="radio" class="btn btn-gris" value="0">
+                <input type="radio" class="btn btn-jaube" value="1">
+                <input type="radio" class="btn btn-rouge" value="2">
+                <button id="btn-submit" type="button" value="Valider" onclick="sendData()">Valider</button>
+            </form>
+            <button class="annuler">X</button>
+        </div>
+        <div class="todos">
+            LISTE
+        </div>
+        <button class="display-form">+</button>
+    </div>
+</body>
+<script src="checkForm.js"></script>
+</html>

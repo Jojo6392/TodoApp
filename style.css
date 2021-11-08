@@ -1,0 +1,8 @@
+.form {
+    --display: none;
+    display: var(--display);
+}
+
+.todo {
+    border: 2px black solid;
+}
